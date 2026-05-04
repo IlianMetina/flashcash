@@ -20,7 +20,6 @@ public class Transaction {
     @JoinColumn(name = "receiver_id")
     private User receiver;
     private Long amount;
-    private Long userId;
     private Long fee;
     private LocalDateTime createdAt;
     @Enumerated(EnumType.STRING)
