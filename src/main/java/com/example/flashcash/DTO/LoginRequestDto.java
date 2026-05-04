@@ -1,5 +1,9 @@
 package com.example.flashcash.DTO;
 
-public class LoginRequestDto {
+import lombok.Getter;
 
+@Getter
+public class LoginRequestDto {
+    private String email;
+    private String password;
 }

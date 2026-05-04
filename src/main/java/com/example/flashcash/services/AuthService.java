@@ -1,5 +1,6 @@
 package com.example.flashcash.services;
 
+import com.example.flashcash.DTO.LoginRequestDto;
 import com.example.flashcash.DTO.RegisterRequestDto;
 import com.example.flashcash.DTO.UserRegisterResponseDto;
 import com.example.flashcash.models.Role;
@@ -38,6 +39,4 @@ public class AuthService {
         User registeredUser = userRepository.save(user);
         return new UserRegisterResponseDto(registeredUser.getId(), user.getFirstName(), user.getLastName(), user.getEmail());
     }
-
-
 }
