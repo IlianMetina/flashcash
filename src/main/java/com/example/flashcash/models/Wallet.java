@@ -3,9 +3,6 @@ package com.example.flashcash.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-
 @Data
 @Entity
 @Table(name = "wallet")
@@ -16,7 +13,7 @@ public class Wallet {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    private Currency currency;
+    private String currency = "EUR";
     private Long balance;
     private String iban;
 
