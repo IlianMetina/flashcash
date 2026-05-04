@@ -36,6 +36,7 @@ public class User implements UserDetails {
 
     private String country;
 
+    @Column(unique = true)
     private String phoneNumber;
 
     private Role role;

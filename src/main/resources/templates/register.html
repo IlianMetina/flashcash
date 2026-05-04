@@ -11,38 +11,38 @@
 
     <h2>Create account</h2>
 
-    <form th:action="@{/register}" method="post">
+    <form th:action="@{/register}" th:object="${registerRequestDto}" method="post">
 
         <div class="form-group">
-            <input type="text" name="firstName" placeholder="First name" required>
+            <input type="text" th:field="${registerRequestDto.firstName}" placeholder="First name" required>
         </div>
 
         <div class="form-group">
-            <input type="text" name="lastName" placeholder="Last name" required>
+            <input type="text" th:field="${registerRequestDto.lastName}" placeholder="Last name" required>
         </div>
 
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" th:field="${registerRequestDto.email}" placeholder="Email" required>
         </div>
 
         <div class="form-group">
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" th:field="${registerRequestDto.password}" placeholder="Password" required>
         </div>
 
         <div class="form-group">
-            <input type="text" name="phoneNumber" placeholder="Phone number">
+            <input type="text" th:field="${registerRequestDto.phoneNumber}" placeholder="Phone number">
         </div>
 
         <div class="form-group">
-            <input type="text" name="city" placeholder="City">
+            <input type="text" th:field="${registerRequestDto.city}" placeholder="City">
         </div>
 
         <div class="form-group">
-            <input type="text" name="address" placeholder="Address">
+            <input type="text" th:field="${registerRequestDto.address}" placeholder="Address">
         </div>
 
         <div class="form-group">
-            <input type="text" name="country" placeholder="Country">
+            <input type="text" th:field="${registerRequestDto.country}" placeholder="Country">
         </div>
 
         <button type="submit">Create account</button>
