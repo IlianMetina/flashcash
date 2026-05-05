@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Dépôt</title>
+    <title>Dépôt - FlashCash</title>
+    <link rel="stylesheet" th:href="@{/css/logged-header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/deposit.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/logged-header :: logged-header}"></div>
+
+<main class="deposit-wrapper">
+    <div class="deposit-card">
+        <div class="deposit-header">
+            <h1>Déposer des fonds</h1>
+            <p>Le montant sera crédité instantanément sur votre compte FlashCash.</p>
+        </div>
+
+        <form th:action="@{/wallet/deposit}" th:object="${depositRequestDto}" method="post" class="deposit-form">
+
+            <div class="input-group">
+                <label for="amount">Montant (€)</label>
+                <div class="input-wrapper">
+                    <span class="currency-symbol">€</span>
+                    <input type="number"
+                           th:field="*{amount}"
+                           id="amount"
+                           placeholder="0"
+                           min="1"
+                           required>
+                </div>
+            </div>
+
+            <button type="submit" class="deposit-btn">Déposer</button>
+
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

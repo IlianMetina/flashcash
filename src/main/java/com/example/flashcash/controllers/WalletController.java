@@ -6,6 +6,7 @@ import com.example.flashcash.services.WalletService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,14 +24,15 @@ public class WalletController {
     }
 
     @GetMapping("/deposit")
-    public String depositPage(){
+    public String depositPage(Model model){
+        model.addAttribute("depositRequestDto", new DepositRequestDto());
         return "wallet/deposit";
     }
 
     @PostMapping("/deposit")
     public String deposit(@Valid @ModelAttribute DepositRequestDto dto, BindingResult result, @AuthenticationPrincipal User user){
         if(result.hasErrors()) return "wallet/deposit";
-        walletService.deposit(user, dto.getAmount());
+        walletService.deposit(user, dto.getAmount() * 100);
         return "redirect:/profile";
     }
 
