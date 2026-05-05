@@ -59,8 +59,8 @@
                 <div>Montant</div>
             </div>
             <div class="account-values">
-                <div>example@email.com</div>
-                <div>525€</div>
+                <div th:text="${user.email}"></div>
+                <div th:text="${wallet.balance / 100} + '€'">100€</div>
             </div>
         </main>
 
