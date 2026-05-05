@@ -11,6 +11,8 @@ import com.example.flashcash.repositories.WalletRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class AuthService {
 
@@ -29,6 +31,10 @@ public class AuthService {
             throw new RuntimeException("User already exist");
         }
 
+        if(requestDto.getBirthDate().isAfter(LocalDate.now().minusYears(18))){
+            throw new RuntimeException("Vous devez être majeur pour utiliser Flash Cash");
+        }
+
         User user = new User();
         user.setFirstName(requestDto.getFirstName());
         user.setLastName(requestDto.getLastName());
@@ -36,6 +42,7 @@ public class AuthService {
         user.setPasswordHash(passwordEncoder.encode(requestDto.getPassword()));
         user.setPhoneNumber(requestDto.getPhoneNumber());
         user.setRole(Role.USER);
+        user.setBirthDate(requestDto.getBirthDate());
         user.setCity(requestDto.getCity());
         user.setAddress(requestDto.getAddress());
         user.setCountry(requestDto.getCountry());

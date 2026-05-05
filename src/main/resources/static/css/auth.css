@@ -4,8 +4,7 @@ body {
     margin: 0;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .auth-container {
@@ -14,6 +13,7 @@ body {
     border-radius: 12px;
     width: 350px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin: auto;
 }
 
 h2 {

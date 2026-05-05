@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+    <nav th:fragment="logged-header" class="navbar">
+        <div class="navbar-left">
+            <a th:href="@{/home}" class="navbar-logo">
+                <img th:src="@{/images/FlashCashPayments-K.png}" alt="FlashCash">
+            </a>
+        </div>
+
+        <div class="navbar-right">
+            <a th:href="@{/home}" class="nav-link">Accueil</a>
+            <a th:href="@{/transfers}" class="nav-link">Transferts</a>
+            <a th:href="@{/profile}" class="nav-link">Profil</a>
+            <a th:href="@{/contact}" class="nav-link">Contact</a>
+            <form th:action="@{/logout}" method="post" class="logout-form">
+                <button type="submit" class="nav-logout">Déconnexion</button>
+            </form>
+        </div>
+    </nav>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" th:href="@{/css/logged-header.css}">
+        <link rel="stylesheet" th:href="@{/css/default-header.css}">
+        <link rel="stylesheet" th:href="@{css/footer.css}">
+        <link rel="stylesheet" th:href="@{css/profile.css}">
+    </head>
+    <body>
+
+        <div sec:authorize="isAuthenticated()">
+            <div th:replace="~{fragments/logged-header :: logged-header}"></div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <div th:replace="~{fragments/default-header :: default-header}"></div>
+        </div>
+
+        <!-- Mettre le reste de la page -->
+
+        <main class="main-profile">
+            <div class="profile-title">Mon profil</div>
+            <div class="grid-container">
+                <div class="grid-card">
+                    <div class="card-title">Déposer de l'argent sur Flash Cash</div>
+                    <div class="card-description">
+                        <p>Ajouter de l'argent avec votre carte</p>
+                        <p>Gratuit</p>
+                        <p>Dépôt instantané</p>
+                        <p>100% sécurisé</p>
+                    </div>
+                    <button class="start-button">Start</button>
+                </div>
+                <div class="grid-card">
+                    <div class="card-title">Transfert vers votre banque</div>
+                    <div class="card-description">
+                        <p>Transfert instantané</p>
+                        <p>Gratuit</p>
+                        <p>International</p>
+                        <p>100% sécurisé</p>
+                    </div>
+                    <button class="start-button">Start</button>
+                </div>
+                <div class="grid-card">
+                    <div class="card-title">Ajouter un IBAN</div>
+                    <div class="card-description">
+                        <p>Ajoutez votre IBAN</p>
+                        <p>Jusqu'à 5</p>
+                        <p>100% des banques</p>
+                        <p>100% sécurisé</p>
+                    </div>
+                    <button class="start-button">Start</button>
+                </div>
+            </div>
+            <div class="account-title">Mon solde</div>
+            <div class="account-infos">
+                <div>Utilisateur</div>
+                <div>Montant</div>
+            </div>
+            <div class="account-values">
+                <div>example@email.com</div>
+                <div>525€</div>
+            </div>
+        </main>
+
+
+
+        <!-- Mettre le reste de la page -->
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </body>
+</html>

@@ -1,60 +1,78 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Register</title>
     <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link rel="stylesheet" th:href="@{/css/logged-header.css}">
+    <link rel="stylesheet" th:href="@{/css/default-header.css}">
+    <link rel="stylesheet" th:href="@{css/footer.css}">
 </head>
 
-<body>
+    <body>
 
-<div class="auth-container">
-
-    <h2>Create account</h2>
-
-    <form th:action="@{/register}" th:object="${registerRequestDto}" method="post">
-
-        <div class="form-group">
-            <input type="text" th:field="${registerRequestDto.firstName}" placeholder="First name" required>
+        <div sec:authorize="isAuthenticated()">
+            <div th:replace="~{fragments/logged-header :: logged-header}"></div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <div th:replace="~{fragments/default-header :: default-header}"></div>
         </div>
 
-        <div class="form-group">
-            <input type="text" th:field="${registerRequestDto.lastName}" placeholder="Last name" required>
+        <div class="auth-container">
+
+            <h2>Créer un compte</h2>
+
+            <form th:action="@{/register}" th:object="${registerRequestDto}" method="post">
+
+                <div class="form-group">
+                    <input type="text" th:field="${registerRequestDto.firstName}" placeholder="Prénom" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="${registerRequestDto.lastName}" placeholder="Nom" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" th:field="${registerRequestDto.email}" placeholder="E-mail" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" th:field="${registerRequestDto.password}" placeholder="Mot de passe" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="${registerRequestDto.phoneNumber}" placeholder="Téléphone">
+                </div>
+
+                <div class="form-group">
+                    <label for="birthdate">Date de naissance</label>
+                    <input type="date" th:field="${registerRequestDto.birthDate}">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="${registerRequestDto.city}" placeholder="Ville">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="${registerRequestDto.address}" placeholder="Adresse">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="${registerRequestDto.country}" placeholder="Pays">
+                </div>
+
+                <button type="submit">Créer son compte</button>
+
+            </form>
+
+            <div class="switch">
+                Vous avez déjà un compte ?
+                <a th:href="@{/login}">Connexion</a>
+            </div>
+
         </div>
 
-        <div class="form-group">
-            <input type="email" th:field="${registerRequestDto.email}" placeholder="Email" required>
-        </div>
+        <div th:replace="~{fragments/footer :: footer}"></div>
 
-        <div class="form-group">
-            <input type="password" th:field="${registerRequestDto.password}" placeholder="Password" required>
-        </div>
 
-        <div class="form-group">
-            <input type="text" th:field="${registerRequestDto.phoneNumber}" placeholder="Phone number">
-        </div>
-
-        <div class="form-group">
-            <input type="text" th:field="${registerRequestDto.city}" placeholder="City">
-        </div>
-
-        <div class="form-group">
-            <input type="text" th:field="${registerRequestDto.address}" placeholder="Address">
-        </div>
-
-        <div class="form-group">
-            <input type="text" th:field="${registerRequestDto.country}" placeholder="Country">
-        </div>
-
-        <button type="submit">Create account</button>
-
-    </form>
-
-    <div class="switch">
-        Already have an account ?
-        <a th:href="@{/login}">Login</a>
-    </div>
-
-</div>
-
-</body>
+    </body>
 </html>

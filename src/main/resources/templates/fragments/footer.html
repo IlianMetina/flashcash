@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<footer th:fragment="footer" class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <img th:src="@{/images/FlashCashPayments-K.png}" alt="FlashCash" class="footer-logo">
+            <p class="footer-tagline">Transferts rapides, simples et sécurisés.</p>
+        </div>
+
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <a th:href="@{/home}">Accueil</a>
+                <a th:href="@{/transfers}">Transferts</a>
+                <a th:href="@{/profile}">Profil</a>
+                <a th:href="@{/contact}">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Légal</h4>
+                <a href="#">Mentions légales</a>
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">CGU</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 FlashCash. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</html>

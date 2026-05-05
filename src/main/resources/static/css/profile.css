@@ -1,0 +1,70 @@
+.main-profile{
+
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.profile-title{
+    font-size: 2.5em;
+    padding-bottom: 1em;
+}
+
+.account-title{
+    font-size: 2.5em;
+    padding: 1em 0 1em 0;
+}
+
+.grid-container{
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3em;
+}
+
+.grid-card{
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+}
+
+.card-title{
+
+    background-color: rgb(124, 124, 255);
+    border-radius: 5px;
+    color: white;
+    padding: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+
+}
+
+.start-button{
+    padding: 10px 20px 10px 20px;
+    width: 90%;
+    margin-bottom: 20px;
+    background-color: white;
+    border: 1px solid rgb(190, 190, 255);
+    border-radius: 10px;
+    color: rgb(103, 103, 255);
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.account-infos, .account-values{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #ffeeee;
+}
+
+
+.account-infos{
+    font-weight: bold;
+    font-size: 1.5em;
+
+}
+
+.account-values{
+    font-size: 1.2em;
+}

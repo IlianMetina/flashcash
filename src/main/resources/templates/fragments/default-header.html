@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <nav th:fragment="default-header" class="navbar">
+        <div class="navbar-left">
+            <a th:href="@{/home}" class="navbar-logo">
+                <img th:src="@{/images/FlashCashPayments-K.png}" alt="FlashCash">
+            </a>
+        </div>
+
+        <div class="navbar-right">
+            <a th:href="@{/login}" class="nav-link">Connexion</a>
+            <a th:href="@{/register}" class="nav-link">Inscription</a>
+        </div>
+    </nav>
+
+</html>

@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/auth.css}">
-</head>
+<html lang="fr" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<body>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" th:href="@{/css/auth.css}">
+        <link rel="stylesheet" th:href="@{/css/logged-header.css}">
+        <link rel="stylesheet" th:href="@{/css/default-header.css}">
+        <link rel="stylesheet" th:href="@{css/footer.css}">
+    </head>
 
-<div class="auth-container">
+    <body>
 
-    <h2>Login</h2>
-
-    <form th:action="@{/login}" method="post">
-
-        <div class="form-group">
-            <input type="email" name="username" placeholder="Email" required>
+        <div sec:authorize="isAuthenticated()">
+            <div th:replace="~{fragments/logged-header :: logged-header}"></div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <div th:replace="~{fragments/default-header :: default-header}"></div>
         </div>
 
-        <div class="form-group">
-            <input type="password" name="password" placeholder="Password" required>
+        <div class="auth-container">
+
+            <h2>Connexion</h2>
+
+            <form th:action="@{/login}" method="post">
+
+                <div class="form-group">
+                    <input type="email" name="username" placeholder="E-mail" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Mot de passe" required>
+                </div>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <div class="switch">
+                Pas de compte ? <a th:href="@{/register}">S'inscrire</a>
+            </div>
+
         </div>
 
-        <button type="submit">Login</button>
+        <div th:replace="~{fragments/footer :: footer}"></div>
 
-    </form>
 
-    <div class="switch">
-        No account ? <a th:href="@{/register}">Register</a>
-    </div>
-
-</div>
-
-</body>
+    </body>
 </html>

@@ -2,6 +2,7 @@ package com.example.flashcash.controllers;
 
 import com.example.flashcash.services.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
@@ -12,5 +13,8 @@ public class UserController {
         this.userService = userService;
     }
 
-
+    @GetMapping("/profile")
+    public String profilePage(){
+        return "profile";
+    }
 }
