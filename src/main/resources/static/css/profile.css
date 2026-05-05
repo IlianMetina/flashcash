@@ -7,7 +7,7 @@
 
 .profile-title{
     font-size: 2.5em;
-    padding-bottom: 1em;
+    padding: 1em 0 1em 0;
 }
 
 .account-title{
@@ -50,6 +50,10 @@
     font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
+}
+
+.account-infos-wrapper{
+    padding-bottom: 20px;
 }
 
 .account-infos, .account-values{

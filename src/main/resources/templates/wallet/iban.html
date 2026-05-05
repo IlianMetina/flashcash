@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Ajout IBAN</title>
+    <title>Ajouter un IBAN - FlashCash</title>
+    <link rel="stylesheet" th:href="@{/css/logged-header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/iban.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/logged-header :: logged-header}"></div>
+
+<main class="iban-wrapper">
+    <div class="iban-card">
+        <div class="iban-header">
+            <h1>Ajouter un IBAN</h1>
+            <p>Votre IBAN est nécessaire pour effectuer dépôts et retraits vers votre compte bancaire.</p>
+        </div>
+
+        <form th:action="@{/wallet/iban}" th:object="${ibanRequestDto}" method="post" class="iban-form">
+
+            <div class="input-group">
+                <label for="iban">IBAN</label>
+                <input type="text"
+                       th:field="*{iban}"
+                       id="iban"
+                       placeholder="FR76 0000 0000 0000 0000 0000 000"
+                       required>
+            </div>
+
+            <button type="submit" class="iban-btn">Enregistrer</button>
+
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

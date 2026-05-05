@@ -17,7 +17,11 @@
             <h1>Déposer des fonds</h1>
             <p>Le montant sera crédité instantanément sur votre compte FlashCash.</p>
         </div>
-
+        <div th:if="${maskedIban != null}" th:text="${maskedIban}"></div>
+        <div th:if="${maskedIban == null}">
+            Aucun IBAN enregistré.
+            <a th:href="@{/wallet/iban}">En ajouter un</a>
+        </div>
         <form th:action="@{/wallet/deposit}" th:object="${depositRequestDto}" method="post" class="deposit-form">
 
             <div class="input-group">

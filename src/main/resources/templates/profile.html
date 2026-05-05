@@ -42,7 +42,9 @@
                         <p>International</p>
                         <p>100% sécurisé</p>
                     </div>
-                    <button class="start-button">Start</button>
+                    <a th:href="@{/wallet/withdraw}" class="nav-link">
+                        <button class="start-button">Start</button>
+                    </a>
                 </div>
                 <div class="grid-card">
                     <div class="card-title">Ajouter un IBAN</div>
@@ -52,17 +54,21 @@
                         <p>100% des banques</p>
                         <p>100% sécurisé</p>
                     </div>
-                    <button class="start-button">Start</button>
+                    <a th:href="@{/wallet/iban}" class="nav-link">
+                        <button class="start-button">Start</button>
+                    </a>
                 </div>
             </div>
             <div class="account-title">Mon solde</div>
-            <div class="account-infos">
-                <div>Utilisateur</div>
-                <div>Montant</div>
-            </div>
-            <div class="account-values">
-                <div th:text="${user.email}"></div>
-                <div th:text="${wallet.balance / 100} + '€'">100€</div>
+            <div class="account-infos-wrapper">
+                <div class="account-infos">
+                    <div>Utilisateur</div>
+                    <div>Montant</div>
+                </div>
+                <div class="account-values">
+                    <div th:text="${user.email}"></div>
+                    <div th:text="${wallet.balance / 100} + '€'">100€</div>
+                </div>
             </div>
         </main>
 

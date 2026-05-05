@@ -29,7 +29,7 @@ public class Wallet {
             throw new IllegalArgumentException("Le montant à créditer doit être positif");
         }
         if(this.balance < amount){
-            throw new RuntimeException("Solde insuffisant");
+            throw new IllegalArgumentException("Solde insuffisant");
         }
         this.balance -= amount;
     }

@@ -1,7 +1,10 @@
 package com.example.flashcash.controllers;
 
 import com.example.flashcash.DTO.DepositRequestDto;
+import com.example.flashcash.DTO.IbanRequestDto;
+import com.example.flashcash.DTO.WithdrawRequestDto;
 import com.example.flashcash.models.User;
+import com.example.flashcash.models.Wallet;
 import com.example.flashcash.services.WalletService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,8 +27,10 @@ public class WalletController {
     }
 
     @GetMapping("/deposit")
-    public String depositPage(Model model){
+    public String depositPage(@AuthenticationPrincipal User user ,Model model){
+        Wallet userWallet = walletService.getWalletByUser(user);
         model.addAttribute("depositRequestDto", new DepositRequestDto());
+        model.addAttribute("maskedIban", walletService.maskIban(userWallet.getIban()));
         return "wallet/deposit";
     }
 
@@ -37,12 +42,39 @@ public class WalletController {
     }
 
     @GetMapping("/withdraw")
-    public String withdrawPage(){
+    public String withdrawPage(@AuthenticationPrincipal User user, Model model){
+        Wallet userWallet = walletService.getWalletByUser(user);
+        model.addAttribute("withdrawRequestDto", new WithdrawRequestDto());
+        model.addAttribute("maskedIban", walletService.maskIban(userWallet.getIban()));
+        model.addAttribute("balance", userWallet.getBalance());
         return "wallet/withdraw";
     }
 
+    @PostMapping("/withdraw")
+    public String withdraw(@Valid @ModelAttribute WithdrawRequestDto withdrawRequestDto, BindingResult result, @AuthenticationPrincipal User user, Model model){
+        if(result.hasErrors()) return "wallet/withdraw";
+        try{
+            walletService.withdraw(user, withdrawRequestDto.getAmount() * 100);
+        }catch (IllegalArgumentException e){
+            Wallet userWallet = walletService.getWalletByUser(user);
+            model.addAttribute("withdrawRequestDto", new WithdrawRequestDto());
+            model.addAttribute("balance", userWallet.getBalance());
+            model.addAttribute("maskedIban", walletService.maskIban(userWallet.getIban()));
+            return "wallet/withdraw";
+        }
+        return "redirect:/profile";
+    }
+
     @GetMapping("/iban")
-    public String ibanPage(){
+    public String ibanPage(Model model){
+        model.addAttribute("ibanRequestDto", new IbanRequestDto());
         return "wallet/iban";
+    }
+
+    @PostMapping("/iban")
+    public String addIban(@Valid @ModelAttribute IbanRequestDto ibanRequestDto, BindingResult result, @AuthenticationPrincipal User user){
+        if (result.hasErrors()) return "wallet/iban";
+        walletService.addIban(user, ibanRequestDto.getIban());
+        return "redirect:/profile";
     }
 }
