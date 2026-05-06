@@ -35,9 +35,11 @@ public class WalletController {
     }
 
     @PostMapping("/deposit")
-    public String deposit(@Valid @ModelAttribute DepositRequestDto dto, BindingResult result, @AuthenticationPrincipal User user){
+    public String deposit(@Valid @ModelAttribute DepositRequestDto dto, BindingResult result, @AuthenticationPrincipal User user, Model model){
         if(result.hasErrors()) return "wallet/deposit";
+        Wallet userWallet = walletService.getWalletByUser(user);
         walletService.deposit(user, dto.getAmount() * 100);
+        model.addAttribute("maskedIban", walletService.maskIban(userWallet.getIban()));
         return "redirect:/profile";
     }
 

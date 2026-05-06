@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="deposit-btn">Déposer</button>
+            <button type="submit" class="deposit-btn" th:disabled="${maskedIban == null}">Déposer</button>
 
         </form>
     </div>

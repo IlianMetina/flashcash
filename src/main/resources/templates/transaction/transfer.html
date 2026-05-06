@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Transfert - FlashCash</title>
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/transfer.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/logged-header :: logged-header}"></div>
+
+<main class="transfer-wrapper">
+    <div class="transfer-card">
+
+        <div class="transfer-header">
+            <h1>Envoyer de l'argent</h1>
+            <p>Transférez des fonds à un autre utilisateur via son email ou son numéro de téléphone.</p>
+        </div>
+
+        <div class="balance-info">
+            <span class="balance-label">Solde disponible</span>
+            <span class="balance-value" th:text="${balance / 100 + ' €'}">0 €</span>
+        </div>
+
+        <form th:action="@{/transfers}" th:object="${transferRequestDto}" method="post" class="transfer-form">
+
+            <div class="input-group">
+                <label for="recipient">Email ou téléphone du destinataire</label>
+                <input type="text"
+                       id="recipient"
+                       name="recipient"
+                       placeholder="exemple@email.com ou 0612345678">
+            </div>
+
+            <div class="input-group">
+                <label for="amount">Montant (€)</label>
+                <div class="input-wrapper">
+                    <span class="currency-symbol">€</span>
+                    <input type="number"
+                           id="amount"
+                           name="amount"
+                           placeholder="0"
+                           min="1">
+                </div>
+            </div>
+
+            <button type="submit" class="transfer-btn">Envoyer</button>
+
+        </form>
+
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

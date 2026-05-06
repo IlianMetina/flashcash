@@ -48,4 +48,16 @@ public class WalletService {
         walletRepository.save(userWallet);
         return userWallet;
     }
+
+    public Wallet debit(Wallet userWallet, Long amount){
+        userWallet.minusAmount(amount * 100);
+        walletRepository.save(userWallet);
+        return userWallet;
+    }
+
+    public Wallet credit(Wallet userWallet, Long amount){
+        userWallet.addAmount(amount * 100);
+        walletRepository.save(userWallet);
+        return userWallet;
+    }
 }
