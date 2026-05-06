@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static com.example.flashcash.utils.ContactUtils.isEmailOrPhone;
+
 @Service
 public class TransactionService {
 
@@ -22,14 +24,6 @@ public class TransactionService {
         this.walletService = walletService;
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
-    }
-
-    public String isEmailOrPhone(String recipient){
-        if(recipient.contains("@")){
-            return "email";
-        }else{
-            return "phone";
-        }
     }
 
     public Transaction transfer(User user, TransferRequestDto transferRequestDto){

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class WalletService {
 
     private final WalletRepository walletRepository;
+    private static final double TRANSACTION_FEE = 0.005;
 
     public WalletService(WalletRepository walletRepository){
         this.walletRepository = walletRepository;
@@ -56,7 +57,7 @@ public class WalletService {
     }
 
     public Wallet credit(Wallet userWallet, Long amount){
-        userWallet.addAmount(amount * 100);
+        userWallet.addAmount(Math.round(amount * 100 * (1 - TRANSACTION_FEE)));
         walletRepository.save(userWallet);
         return userWallet;
     }

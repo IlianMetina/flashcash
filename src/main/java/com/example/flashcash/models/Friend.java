@@ -20,4 +20,6 @@ public class Friend {
     @JoinColumn(name = "friend_id")
     private User friendUser;
     private LocalDate addedAt = LocalDate.now();
+    @Enumerated(EnumType.STRING)
+    private FriendStatus status;
 }

@@ -1,30 +1,98 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
-    <link rel="stylesheet" th:href="@{/css/logged-header.css}">
-    <link rel="stylesheet" th:href="@{/css/default-header.css}">
-    <link rel="stylesheet" th:href="@{css/footer.css}">
+    <title>Contacts - FlashCash</title>
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/contact.css">
 </head>
 <body>
-    <div sec:authorize="isAuthenticated()">
-        <div th:replace="~{fragments/logged-header :: logged-header}"></div>
-    </div>
-    <div sec:authorize="isAnonymous()">
-        <div th:replace="~{fragments/default-header :: default-header}"></div>
-    </div>
 
-    <!-- Mettre le reste de la page -->
+<!-- navbar -->
 
+<div th:replace="~{fragments/logged-header :: logged-header}"></div>
 
+<main class="contact-wrapper">
 
+    <!-- Section ajouter un contact -->
+    <section class="contact-card">
+        <div class="section-header">
+            <h2>Ajouter un contact</h2>
+            <p>Entrez l'email ou le numéro de téléphone de la personne à ajouter.</p>
+        </div>
 
+        <form th:action="@{/contact/add}" method="post" class="add-form">
+            <div class="input-row">
+                <input type="text"
+                       name="recipient"
+                       placeholder="Email ou téléphone">
+                <button type="submit" class="btn-primary">Envoyer</button>
+            </div>
+        </form>
+    </section>
 
-    <!-- Mettre le reste de la page -->
+    <!-- Section demandes reçues -->
+    <section class="contact-card">
+        <div class="section-header">
+            <h2>Demandes reçues</h2>
+        </div>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
+        <div class="friend-list">
+
+            <!-- Item demande - à répéter avec th:each -->
+            <div class="friend-item" th:each="request : ${allRequests}">
+                <div class="friend-info">
+                    <span class="friend-name" th:text="${request.getFriendUser().getFirstName()}">Jean Dupont</span>
+                    <span class="friend-contact" th:text="${request.getFriendUser().getEmail()}">jean@email.com</span>
+                    <span class="friend-contact" th:text="${request.getFriendUser().getPhoneNumber()}">0606060606</span>
+                </div>
+                <div class="friend-actions">
+                    <form action="/contact/accept" method="post">
+                        <!-- champ hidden pour l'id de la demande -->
+                        <button type="submit" class="btn-accept">Accepter</button>
+                    </form>
+                    <form action="/contact/refuse" method="post">
+                        <!-- champ hidden pour l'id de la demande -->
+                        <button type="submit" class="btn-refuse">Refuser</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Message si aucune demande -->
+            <p class="empty-message" th:if="${allRequests.isEmpty()}">Aucune demande en attente.</p>
+
+        </div>
+    </section>
+
+    <!-- Section mes contacts -->
+    <section class="contact-card">
+        <div class="section-header">
+            <h2>Mes contacts</h2>
+        </div>
+
+        <div class="friend-list">
+
+            <!-- Item contact - à répéter avec th:each -->
+            <div class="friend-item" th:each="friend : ${allFriendsRequests}">
+                <div class="friend-info">
+                    <span class="friend-name"
+                          th:text="${friend.getFriendUser().getFirstName()} + ' ' + ${friend.getFriendUser().getLastName()}">Marie Martin</span>
+                    <span class="friend-contact" th:text="${friend.getFriendUser().getEmail()}">jean@email.com</span>
+                    <span class="friend-contact" th:text="${friend.getFriendUser().getPhoneNumber()}">0606060606</span>
+                </div>
+                <span class="friend-date" th:text="'Ajouté le ' + ${friend.getAddedAt()}">Ajouté le 01/05/2025</span>
+            </div>
+
+            <!-- Message si aucun contact -->
+            <p class="empty-message" th:if="${allFriendsRequests.isEmpty()}">Vous n'avez pas encore de contacts.</p>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>
