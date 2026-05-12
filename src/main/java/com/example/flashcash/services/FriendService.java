@@ -1,6 +1,7 @@
 package com.example.flashcash.services;
 
 import com.example.flashcash.DTO.FriendRequestDto;
+import com.example.flashcash.DTO.FriendResponseDto;
 import com.example.flashcash.models.Friend;
 import com.example.flashcash.models.FriendStatus;
 import com.example.flashcash.models.User;
@@ -9,6 +10,7 @@ import com.example.flashcash.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.flashcash.utils.ContactUtils.isEmailOrPhone;
@@ -24,12 +26,32 @@ public class FriendService {
         this.friendRepository = friendRepository;
     }
 
-    public List<Friend> findAllFriendsByUser(User user){
-        return friendRepository.findByUserAndStatus(user, FriendStatus.ADDED);
+    public List<Friend> findPendingRequests(User user) {
+        return friendRepository.findByFriendUserAndStatus(user, FriendStatus.PENDING);
     }
 
-    public List<Friend> findAllFriendsRequestByUser(User user){
-        return friendRepository.findByFriendUserAndStatus(user, FriendStatus.PENDING);
+    public List<FriendResponseDto> findAllAcceptedFriends(User user){
+        List<Friend> sentAndAccepted = friendRepository.findByUserAndStatus(user, FriendStatus.ADDED);
+        List<Friend> receivedAndAccepted = friendRepository.findByFriendUserAndStatus(user, FriendStatus.ADDED);
+
+        List<Friend> allFriends = new ArrayList<>();
+        allFriends.addAll(sentAndAccepted);
+        allFriends.addAll(receivedAndAccepted);
+
+        List<FriendResponseDto> result = new ArrayList<>();
+        for (Friend friend : allFriends){
+            FriendResponseDto dto = new FriendResponseDto();
+            User other = friend.getUser().getId().equals(user.getId()) ? friend.getFriendUser() : friend.getUser();
+            dto.setFirstName(other.getFirstName());
+            dto.setLastName(other.getLastName());
+            dto.setEmail(other.getEmail());
+            dto.setPhoneNumber(other.getPhoneNumber());
+            dto.setAddedAt(friend.getAddedAt());
+            result.add(dto);
+        }
+
+
+        return result;
     }
 
     public Friend add(FriendRequestDto friendRequestDto, User sender){
@@ -52,11 +74,17 @@ public class FriendService {
         return friend;
     }
 
-//    public Friend accept(){
-//
-//    }
-//
-//    public Friend refuse(){
-//
-//    }
+    public void refuse(Long friendId){
+        friendRepository.deleteById(friendId);
+    }
+
+    public void accept(Long friendId){
+        Friend friend = friendRepository.findById(friendId).orElseThrow(() -> new RuntimeException("Friend not found"));
+        friend.setStatus(FriendStatus.ADDED);
+        friendRepository.save(friend);
+    }
+
+    public Friend findById(Long id){
+        return friendRepository.findById(id).orElseThrow(() -> new RuntimeException("Friend not found"));
+    }
 }

@@ -27,6 +27,7 @@
                        id="iban"
                        placeholder="FR76 0000 0000 0000 0000 0000 000"
                        required>
+                <span th:if="${#fields.hasErrors()}" th:errors="*{iban}"></span>
             </div>
 
             <button type="submit" class="iban-btn">Enregistrer</button>

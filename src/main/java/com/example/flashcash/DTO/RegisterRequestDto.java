@@ -1,9 +1,6 @@
 package com.example.flashcash.DTO;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -21,11 +18,15 @@ public class RegisterRequestDto {
     @NotBlank
     @Size(min = 8)
     private String password;
+    @NotBlank
     private String city;
+    @NotBlank
     private String address;
     @NotNull
     private LocalDate birthDate;
+    @NotBlank
     private String country;
     @NotBlank
+    @Pattern(regexp = "^0[0-9]{9}$", message = "Téléphone invalide")
     private String phoneNumber;
 }

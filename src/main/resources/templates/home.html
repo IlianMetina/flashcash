@@ -10,6 +10,9 @@
         <link rel="stylesheet" th:href="@{/css/default-header.css}">
         <link rel="stylesheet" th:href="@{css/footer.css}">
         <link rel="stylesheet" th:href="@{css/home.css}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Paytone+One&display=swap" rel="stylesheet">
     </head>
     <body>
         <div sec:authorize="isAuthenticated()">
@@ -22,8 +25,120 @@
         <!-- Mettre le reste de la page -->
 
 
-        <div>salut</div>
+        <main>
 
+            <!-- HERO -->
+            <section class="hero">
+                <div class="hero-content">
+                    <span class="tag">Paiement simple & instantané</span>
+
+                    <h1>
+                        Envoyez et recevez de l'argent
+                        <span>en quelques secondes.</span>
+                    </h1>
+
+                    <p>
+                        Flash Cash permet d’envoyer, recevoir et déposer de l’argent
+                        facilement via email ou numéro de téléphone.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-primary">Commencer</a>
+                        <a href="#" class="btn-secondary">En savoir plus</a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div>
+                            <h3>+2M</h3>
+                            <p>Transactions</p>
+                        </div>
+
+                        <div>
+                            <h3>99.9%</h3>
+                            <p>Sécurisé</p>
+                        </div>
+
+                        <div>
+                            <h3>24/7</h3>
+                            <p>Disponible</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-card">
+                    <div class="card-top">
+                        <p>Solde disponible</p>
+                        <h2 th:text="${wallet.getBalance() / 100} + ' €'">4 250,00 €</h2>
+                    </div>
+
+                    <div class="transaction">
+                        <div class="user">
+                            <div class="avatar">M</div>
+                            <div>
+                                <h4>Marie Dupont</h4>
+                                <span>Envoyé aujourd'hui</span>
+                            </div>
+                        </div>
+
+                        <strong>-120 €</strong>
+                    </div>
+
+                    <div class="transaction">
+                        <div class="user">
+                            <div class="avatar blue">L</div>
+                            <div>
+                                <h4>Lucas Martin</h4>
+                                <span>Reçu aujourd'hui</span>
+                            </div>
+                        </div>
+
+                        <strong class="green">+350 €</strong>
+                    </div>
+
+                    <button class="send-btn">Envoyer de l'argent</button>
+                </div>
+            </section>
+
+            <!-- FEATURES -->
+            <section class="features">
+
+                <div class="feature-box">
+                    <div class="icon">💸</div>
+                    <h3>Transfert instantané</h3>
+                    <p>
+                        Envoyez de l’argent immédiatement à vos proches.
+                    </p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="icon">📱</div>
+                    <h3>Email ou téléphone</h3>
+                    <p>
+                        Aucun IBAN nécessaire, un numéro ou email suffit.
+                    </p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="icon">🔒</div>
+                    <h3>Sécurité maximale</h3>
+                    <p>
+                        Vos paiements sont protégés et chiffrés.
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- CTA -->
+            <section class="cta">
+                <h2>Prêt à utiliser Flash Cash ?</h2>
+                <p>
+                    Rejoignez des milliers d’utilisateurs qui envoient leur argent rapidement.
+                </p>
+
+                <a href="#" class="btn-primary">Créer un compte</a>
+            </section>
+
+        </main>
 
         <!-- Mettre le reste de la page -->
 

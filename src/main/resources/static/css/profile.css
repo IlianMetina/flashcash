@@ -1,18 +1,30 @@
+body{
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: -0.3px;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
 .main-profile{
 
     display: grid;
     justify-content: center;
     text-align: center;
+    background: linear-gradient(135deg, #60cdff, #3bb8ee);
 }
 
 .profile-title{
-    font-size: 2.5em;
+    font-size: 3em;
     padding: 1em 0 1em 0;
+    color: white;
+    font-weight: 800;
 }
 
 .account-title{
     font-size: 2.5em;
     padding: 1em 0 1em 0;
+    font-weight: 800;
+    color: white;
 }
 
 .grid-container{
@@ -25,7 +37,7 @@
 .grid-card{
 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-
+    background: linear-gradient(135deg, #60cdff, #3bb8ee);
 }
 
 .card-title{
@@ -34,9 +46,14 @@
     border-radius: 5px;
     color: white;
     padding: 20px;
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: bold;
 
+}
+
+.card-description{
+    color: white;
+    font-size: 1.1em;
 }
 
 .start-button{
@@ -59,16 +76,18 @@
 .account-infos, .account-values{
     display: flex;
     justify-content: space-around;
-    border: 1px solid #ffeeee;
+    color: white;
 }
-
 
 .account-infos{
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.75em;
+    border-top: 1px solid #63c8f6;
+    border-bottom: 1px solid #63c8f6;
 
 }
 
 .account-values{
-    font-size: 1.2em;
+    font-size: 1.35em;
+    border-bottom: 1px solid #a6e3ff;
 }

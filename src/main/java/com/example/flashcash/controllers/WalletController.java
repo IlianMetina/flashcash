@@ -74,9 +74,13 @@ public class WalletController {
     }
 
     @PostMapping("/iban")
-    public String addIban(@Valid @ModelAttribute IbanRequestDto ibanRequestDto, BindingResult result, @AuthenticationPrincipal User user){
+    public String addIban(@Valid @ModelAttribute IbanRequestDto ibanRequestDto, BindingResult result, @AuthenticationPrincipal User user, Model model){
         if (result.hasErrors()) return "wallet/iban";
-        walletService.addIban(user, ibanRequestDto.getIban());
+        try{
+            walletService.addIban(user, ibanRequestDto.getIban());
+        } catch (RuntimeException e) {
+            model.addAttribute("error", "Iban invalide");
+        }
         return "redirect:/profile";
     }
 }

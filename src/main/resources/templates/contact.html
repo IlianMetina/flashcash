@@ -21,11 +21,13 @@
             <p>Entrez l'email ou le numéro de téléphone de la personne à ajouter.</p>
         </div>
 
-        <form th:action="@{/contact/add}" method="post" class="add-form">
+        <form th:action="@{/contact/add}" th:object="${friendRequestDto}" method="post" class="add-form">
             <div class="input-row">
                 <input type="text"
-                       name="recipient"
+                       th:field="*{recipient}"
                        placeholder="Email ou téléphone">
+                <span th:if="${#fields.hasErrors('recipient')}" th:errors="*{recipient}"></span>
+                <p th:if="${error}" th:text="${error}"></p>
                 <button type="submit" class="btn-primary">Envoyer</button>
             </div>
         </form>
@@ -47,12 +49,14 @@
                     <span class="friend-contact" th:text="${request.getFriendUser().getPhoneNumber()}">0606060606</span>
                 </div>
                 <div class="friend-actions">
-                    <form action="/contact/accept" method="post">
+                    <form th:action="@{/contact/accept}" method="post">
                         <!-- champ hidden pour l'id de la demande -->
+                        <input type="hidden" name="friendId" th:value="${request.getId()}">
                         <button type="submit" class="btn-accept">Accepter</button>
                     </form>
-                    <form action="/contact/refuse" method="post">
+                    <form th:action="@{/contact/refuse}" method="post">
                         <!-- champ hidden pour l'id de la demande -->
+                        <input type="hidden" name="friendId" th:value="${request.getId()}">
                         <button type="submit" class="btn-refuse">Refuser</button>
                     </form>
                 </div>
@@ -76,11 +80,11 @@
             <div class="friend-item" th:each="friend : ${allFriendsRequests}">
                 <div class="friend-info">
                     <span class="friend-name"
-                          th:text="${friend.getFriendUser().getFirstName()} + ' ' + ${friend.getFriendUser().getLastName()}">Marie Martin</span>
-                    <span class="friend-contact" th:text="${friend.getFriendUser().getEmail()}">jean@email.com</span>
-                    <span class="friend-contact" th:text="${friend.getFriendUser().getPhoneNumber()}">0606060606</span>
+                          th:text="${friend.firstName} + ' ' + ${friend.lastName}">Marie Martin</span>
+                    <span class="friend-contact" th:text="${friend.email}">jean@email.com</span>
+                    <span class="friend-contact" th:text="${friend.phoneNumber}">0606060606</span>
                 </div>
-                <span class="friend-date" th:text="'Ajouté le ' + ${friend.getAddedAt()}">Ajouté le 01/05/2025</span>
+                <span class="friend-date" th:text="'Ajouté le ' + ${friend.addedAt}">Ajouté le 01/05/2025</span>
             </div>
 
             <!-- Message si aucun contact -->

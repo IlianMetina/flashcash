@@ -32,13 +32,19 @@ public class TransactionController {
     public String transferPage(@AuthenticationPrincipal User user, Model model){
         Wallet userWallet = walletService.getWalletByUser(user);
         model.addAttribute("balance", userWallet.getBalance());
+        model.addAttribute("transferRequestDto", new TransferRequestDto());
         return "transaction/transfer";
     }
 
     @PostMapping("/transfers")
-    public String transfers(@Valid @ModelAttribute TransferRequestDto transferRequestDto, @AuthenticationPrincipal User user, Model model, BindingResult result){
+    public String transfers(@Valid @ModelAttribute TransferRequestDto transferRequestDto, BindingResult result, @AuthenticationPrincipal User user, Model model){
         if(result.hasErrors()) return "transaction/transfer";
-        transactionService.transfer(user, transferRequestDto);
+        try{
+            transactionService.transfer(user, transferRequestDto);
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e);
+            return "transaction/transfer";
+        }
         model.addAttribute("transferRequestDto", new TransferRequestDto());
         return "redirect:/profile";
     }

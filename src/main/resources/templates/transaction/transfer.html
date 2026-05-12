@@ -29,8 +29,9 @@
                 <label for="recipient">Email ou téléphone du destinataire</label>
                 <input type="text"
                        id="recipient"
-                       name="recipient"
+                       th:field="*{recipient}"
                        placeholder="exemple@email.com ou 0612345678">
+                <span th:if="${#fields.hasErrors()}" th:errors="*{recipient}"></span>
             </div>
 
             <div class="input-group">
@@ -39,7 +40,7 @@
                     <span class="currency-symbol">€</span>
                     <input type="number"
                            id="amount"
-                           name="amount"
+                           th:field="*{amount}"
                            placeholder="0"
                            min="1">
                 </div>
