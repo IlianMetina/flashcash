@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - FlashCash</title>
+  <link rel="stylesheet" th:href="@{css/admin.css}">
+</head>
+<body>
+
+<aside class="sidebar">
+  <h2 class="logo">FlashCash</h2>
+
+  <nav>
+    <a href="#" class="active">Dashboard</a>
+    <a href="#">Transactions</a>
+    <a href="#">Clients</a>
+    <a href="#">Paiements</a>
+    <a href="#">Paramètres</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+  <header class="topbar">
+    <h1>Dashboard Admin</h1>
+
+    <div class="admin-box">
+      <img src="https://i.pravatar.cc/40" alt="admin">
+      <span>Admin</span>
+    </div>
+  </header>
+
+  <section class="cards">
+
+    <div class="card">
+      <h3>Solde Total</h3>
+      <p th:text="${transactionsInfos.getTotalAmount()} + ' €'">€24,580</p>
+    </div>
+
+    <div class="card">
+      <h3>Transactions</h3>
+      <p th:text="${transactionsInfos.getCount()}">1,284</p>
+    </div>
+
+    <div class="card">
+      <h3>Clients</h3>
+      <p th:text="${usersCount}">432</p>
+    </div>
+
+  </section>
+
+  <section class="table-section">
+    <h2>Dernières transactions</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Montant</th>
+          <th>Statut</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="history : ${transactionsHistory}">
+          <td th:text="${history.getFirstName()} + ' ' + ${history.getLastName()}">Jean Martin</td>
+          <td th:text="${history.getAmount()}">€320</td>
+          <td><span class="success" th:text="${history.getType()}">Validé</span></td>
+          <td th:text="${history.getDate()}">22 Mai 2026</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+</body>
+</html>

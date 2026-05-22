@@ -1,5 +1,7 @@
 package com.example.flashcash.services;
 
+import com.example.flashcash.DTO.TransactionsHistory;
+import com.example.flashcash.DTO.TransactionsInfos;
 import com.example.flashcash.DTO.TransferRequestDto;
 import com.example.flashcash.models.Transaction;
 import com.example.flashcash.models.TransactionType;
@@ -10,6 +12,9 @@ import com.example.flashcash.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static com.example.flashcash.utils.ContactUtils.isEmailOrPhone;
 
@@ -54,4 +59,38 @@ public class TransactionService {
 
         return transaction;
     }
+
+    public TransactionsInfos allTransactionsAmount(){
+        List<Transaction> allTransactions = transactionRepository.findAll();
+        TransactionsInfos transactionsInfos = new TransactionsInfos();
+        Long totalAmount = 0L;
+        Long count = 0L;
+        for(int i = 0; i < allTransactions.size(); i++){
+            totalAmount += allTransactions.get(i).getAmount();
+            count++;
+        }
+        transactionsInfos.setCount(count);
+        transactionsInfos.setTotalAmount(totalAmount);
+        return transactionsInfos;
+    }
+
+    public List<TransactionsHistory> transactionsHistory(){
+        ArrayList<TransactionsHistory> transactionsHistory = new ArrayList<>();
+        List<Transaction> allTransactions = transactionRepository.findAll();
+        for(int i = 0; i < Math.min(3, allTransactions.size()); i++){
+            TransactionsHistory history = new TransactionsHistory();
+            User user = allTransactions.get(i).getSender();
+            history.setFirstName(user.getFirstName());
+            history.setLastName(user.getLastName());
+            history.setDate(allTransactions.get(i).getCreatedAt());
+            history.setType(allTransactions.get(i).getType());
+            history.setAmount(allTransactions.get(i).getAmount());
+            transactionsHistory.add(history);
+        }
+
+        return transactionsHistory;
+    }
+
+
+
 }
